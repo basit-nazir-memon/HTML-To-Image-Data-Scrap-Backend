@@ -4,11 +4,11 @@ const { generateHTML } = require('./generator');
 require('dotenv').config();
 const app = express();
 const port = 3000;
-// const cors = require('cors');
+const cors = require('cors');
 const fs = require('fs');
 
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 let existingData = [];
 
