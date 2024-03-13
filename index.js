@@ -6,15 +6,15 @@ const port = 3000;
 const cors = require('cors');
 const fs = require('fs');
 
-app.use(express.json());
-app.use(cors());
-
 // Assuming this is your backend code
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://basit-nazir-memon.github.io');
     // Add other CORS headers as needed
     next();
 });
+
+app.use(express.json());
+app.use(cors());
 
 
 let existingData = [];
