@@ -38,8 +38,6 @@ const generateHTML = (data) =>{
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
-            <script src="./assets/js/kit.fontawesome.js" crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
             <style>
                 body{
                     margin: 0;
@@ -77,8 +75,6 @@ const generateHTML = (data) =>{
                     top: 0;
                 }
                 .arrows{
-                    font-size: 50px;
-                    color: lightgray;
                     position: absolute;
                     top: 135px;
                 }
@@ -124,8 +120,8 @@ const generateHTML = (data) =>{
                 <div class="imageSec">
                     <img src="${data?.imageUrls[0]}" alt="image">
                     <div class="blackShadow"></div>
-                    <i class="fa-solid fa-angle-right arrows right"></i>
-                    <i class="fa-solid fa-angle-left arrows left"></i>
+                    <img src="./assets/right.svg" alt="Right Arrow" class="arrows right" style="width: 80px; height: 80px;">
+                    <img src="./assets/left.svg" alt="Left Arrow" class="arrows left" style="width: 80px; height: 80px;">
                     <div class="cardLabels pa">
                         ${data.isFeatured ? '<div class="cardLabel" style="background-color: rgb(67, 66, 68);">Featured</div>' : '' }
                         <div class="cardLabel" style="background-color: orange;">${data.rentalStatus}</div>
@@ -136,10 +132,10 @@ const generateHTML = (data) =>{
                     <p style="color: orange;">${data.propertyType}</p>
                     <div style="color: gray;">
                         ${data.bedrooms}
-                        <i class="fa-solid fa-bed"></i>
+                        <img src="./assets/bed.svg" alt="Bed" style="width: 30px; height: 20px;"/>
                         |
                         ${data.bathrooms}
-                        <i class="fa-solid fa-bath"></i>
+                        <img src="./assets/bath.svg" alt="Bath" style="width: 30px; height: 20px;"/>
                     </div>
                 </div>
                 <p style="margin-top: 10px; margin-bottom: 25px;">${data.street ? data.street + ', ' : ''} ${data.city ? data.city + ', ' : ''} ${data.postCode ? data.postCode.substr(0,3) : ''}</p>
