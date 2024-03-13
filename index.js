@@ -82,7 +82,7 @@ app.post('/convert', async (req, res) => {
             await page.setContent(cardHtml);
 
             // Wait for 2 seconds for the content to render
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 3000));
             
             const buffer = await page.screenshot({type: Imgtype === "PNG" ? "png" : "jpeg"})
             res.set('Content-Type', Imgtype === "PNG" ? 'image/png' : 'image/jpeg');
