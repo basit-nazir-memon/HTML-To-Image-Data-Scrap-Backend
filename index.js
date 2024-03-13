@@ -9,6 +9,14 @@ const fs = require('fs');
 app.use(express.json());
 app.use(cors());
 
+// Assuming this is your backend code
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://basit-nazir-memon.github.io');
+    // Add other CORS headers as needed
+    next();
+});
+
+
 let existingData = [];
 
 // Route to convert HTML/CSS card to JPEG and PNG images
