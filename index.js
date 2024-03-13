@@ -1,6 +1,7 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const { generateHTML } = require('./generator');
+require('dotenv').config();
 const app = express();
 const port = 3000;
 // const cors = require('cors');
@@ -56,26 +57,43 @@ app.post('/convert', async (req, res) => {
     }
     if (listingData) {
         // Launch a headless browser
-        const browser = await puppeteer.launch({ executablePath: '/opt/render/.cache/puppeteer/chrome/linux-122.0.6261.111' });
-        const page = await browser.newPage();
-
-        // Set the viewport width
-        await page.setViewport({ width: 640, height: 650 });
-
-        // Set the HTML content
-        const cardHtml = generateHTML(listingData);
-
-        // Set the HTML content and wait for it to render
-        await page.setContent(cardHtml);
-
-        // Wait for 2 seconds for the content to render
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const browser = await puppeteer.launch({ 
+            args: [
+                "--disable-setuid-sandbox",
+                "--no-sandbox",
+                "--single-process",
+                "--no-zygote",
+            ],
+            executablePath: process.env.NODE_ENV === 'production' 
+                                ? process.env.PUPPETEER_EXECUTABLE_PATH
+                                : puppeteer.executablePath() 
+        });
         
-        const buffer = await page.screenshot({type: Imgtype === "PNG" ? "png" : "jpeg"})
-        await browser.close();
-        res.set('Content-Type', Imgtype === "PNG" ? 'image/png' : 'image/jpeg');
-        return res.send(buffer);
+        try{
+            const page = await browser.newPage();
 
+            // Set the viewport width
+            await page.setViewport({ width: 640, height: 650 });
+
+            // Set the HTML content
+            const cardHtml = generateHTML(listingData);
+
+            // Set the HTML content and wait for it to render
+            await page.setContent(cardHtml);
+
+            // Wait for 2 seconds for the content to render
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            const buffer = await page.screenshot({type: Imgtype === "PNG" ? "png" : "jpeg"})
+            res.set('Content-Type', Imgtype === "PNG" ? 'image/png' : 'image/jpeg');
+            res.send(buffer);
+        }catch(e){
+            console.error(e);
+        } finally {
+            await browser.close();
+        }
+
+        
     }else{
         res.status(404).json({
             message: "Listing Not Found"
