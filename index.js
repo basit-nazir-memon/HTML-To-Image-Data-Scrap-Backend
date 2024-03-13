@@ -9,7 +9,6 @@ const fs = require('fs');
 app.use(express.json());
 // app.use(cors());
 
-
 let existingData = [];
 
 // Route to convert HTML/CSS card to JPEG and PNG images
@@ -57,7 +56,7 @@ app.post('/convert', async (req, res) => {
     }
     if (listingData) {
         // Launch a headless browser
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({ executablePath: '/opt/render/.cache/puppeteer/chrome/linux-122.0.6261.111' });
         const page = await browser.newPage();
 
         // Set the viewport width
