@@ -3,18 +3,11 @@ const puppeteer = require('puppeteer');
 const { generateHTML } = require('./generator');
 const app = express();
 const port = 3000;
-const cors = require('cors');
+// const cors = require('cors');
 const fs = require('fs');
 
-// Assuming this is your backend code
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://basit-nazir-memon.github.io');
-    // Add other CORS headers as needed
-    next();
-});
-
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 
 let existingData = [];
