@@ -12,6 +12,9 @@ app.use(cors());
 
 let existingData = [];
 
+// Set CORS headers for the /convert endpoint
+app.options('/convert', cors());
+
 // Route to convert HTML/CSS card to JPEG and PNG images
 app.post('/convert', async (req, res) => {
     let {linkText, Imgtype} = req.body;
