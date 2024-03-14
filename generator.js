@@ -129,17 +129,17 @@ const generateHTML = (data) =>{
                     <svg class="arrows left" width="60px" height="80px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L9.41421 12L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071C15.3166 20.0976 14.6834 20.0976 14.2929 19.7071L7.29289 12.7071C7.10536 12.5196 7 12.2652 7 12C7 11.7348 7.10536 11.4804 7.29289 11.2929L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289Z" fill="#d3d3d3"/></svg>
                     <div class="cardLabels pa">
                         ${data.isFeatured ? '<div class="cardLabel" style="background-color: #3e4c66;">Featured</div>' : ''}
-                        ${data.agentName === 'Airbuy & Sell' ? '<div class="cardLabel" style="background-color: #ffa164;">' + data.rentalStatus + '</div>' : ''}
+                        ${(data.rentalStatus === 'Active') ? ('<div class="cardLabel" style="background-color: #ffa164;">' + data.rentalStatus + '</div>') : ''}
                     </div>
                     <p class="pa" style="top: 220px; color:aliceblue; left: 15px; font-weight: bold; font-size: 35px;">£${data.salesPrice}</p>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center; font-size: 20px;">
-                    <p style="color: #ffa164;">${data.propertyType}</p>
+                    <p style="color: #ffa164;">${data.propertyType ? data.propertyType : ' '}</p>
                     <div style="color: #808080; display: flex; align-items: center;">
-                        ${data.bedrooms}
+                        ${data.bedrooms ? data.bedrooms : 0}
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 32 32" height="25px" width="30px" xmlns="http://www.w3.org/2000/svg"><path d="M 6 6 C 4.355469 6 3 7.355469 3 9 L 3 15.78125 C 2.390625 16.332031 2 17.121094 2 18 L 2 27 L 7 27 L 7 25 L 25 25 L 25 27 L 30 27 L 30 18 C 30 17.121094 29.609375 16.332031 29 15.78125 L 29 9 C 29 7.355469 27.644531 6 26 6 Z M 6 8 L 26 8 C 26.554688 8 27 8.445313 27 9 L 27 15 L 25 15 L 25 14 C 25 12.355469 23.644531 11 22 11 L 18 11 C 17.234375 11 16.53125 11.300781 16 11.78125 C 15.46875 11.300781 14.765625 11 14 11 L 10 11 C 8.355469 11 7 12.355469 7 14 L 7 15 L 5 15 L 5 9 C 5 8.445313 5.445313 8 6 8 Z M 10 13 L 14 13 C 14.554688 13 15 13.445313 15 14 L 15 15 L 9 15 L 9 14 C 9 13.445313 9.445313 13 10 13 Z M 18 13 L 22 13 C 22.554688 13 23 13.445313 23 14 L 23 15 L 17 15 L 17 14 C 17 13.445313 17.445313 13 18 13 Z M 5 17 L 27 17 C 27.554688 17 28 17.445313 28 18 L 28 25 L 27 25 L 27 23 L 5 23 L 5 25 L 4 25 L 4 18 C 4 17.445313 4.445313 17 5 17 Z"></path></svg>
                         |
-                        ${data.bathrooms}
+                        ${data.bathrooms ? data.bathrooms : 0}
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" height="25px" width="30px" xmlns="http://www.w3.org/2000/svg"><path d="M232,96H208a8,8,0,0,0-8-8H136a8,8,0,0,0-8,8H64V52A12,12,0,0,1,76,40a12.44,12.44,0,0,1,12.16,9.59,8,8,0,0,0,15.68-3.18A28.32,28.32,0,0,0,76,24,28,28,0,0,0,48,52V96H24A16,16,0,0,0,8,112v32a56.06,56.06,0,0,0,56,56v16a8,8,0,0,0,16,0V200h96v16a8,8,0,0,0,16,0V200a56.06,56.06,0,0,0,56-56V112A16,16,0,0,0,232,96Zm-40,8v32H144V104Zm40,40a40,40,0,0,1-40,40H64a40,40,0,0,1-40-40V112H128v32a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V112h24Z"></path></svg>
                     </div>
                 </div>
@@ -156,11 +156,12 @@ const generateHTML = (data) =>{
                         <div>Avg. Daily Rate</div>
                     </div>
 
-                    ${data.airbnbRating || data.airbnbCompsFound > 0 || data.bookingDotComUrl ? '<div style="width: 3px; border-right: 3px solid lightgray;"></div>' : '' }
+                    ${data.airbnbRating || data.airbnbCompsFound > 0 || data.bookingDotComUrl || (data.airbnbUrl && data.rentalStatus === "Active") ? '<div style="width: 3px; border-right: 3px solid lightgray;"></div>' : '' }
         
-                    ${data.airbnbCompsFound > 0 ? `
+                    
+                    ${data.airbnbCompsFound > 0 && !(data.airbnbUrl && data.rentalStatus === "Active") ? `
                             <div style="display: flex; align-items: center; justify-content: space-around;">
-                                <div style="width: 130px; text-align: center; color: #1864ab; font-weight: bold; ">View 14 Comparables</div>
+                                <div style="width: 130px; text-align: center; color: #1864ab; font-weight: bold; ">View ${data.airbnbCompsFound} Comparables</div>
                                 <div style="top: 0;">
                                     <svg width="25px" height="25px" viewBox="0 0 24 24" fill="##1864ab" xmlns="http://www.w3.or+g/2000/svg">
                                         <path d="M12 17.75C12.4142 17.75 12.75 17.4142 12.75 17V11C12.75 10.5858 12.4142 10.25 12 10.25C11.5858 10.25 11.25 10.5858 11.25 11V17C11.25 17.4142 11.5858 17.75 12 17.75Z" fill="##1864ab"/>
@@ -170,29 +171,27 @@ const generateHTML = (data) =>{
                                 </div>
                             </div>
                         `
-                        : ''
-                    }
-
-                    ${data.airbnbCompsFound <= 0 && data.bookingDotComUrl ? `
+                        : data.bookingDotComUrl ? `
                             <div style="display: flex; align-items: center; justify-content: space-around;">
                                 <div style="width: 130px; text-align: center; color: #1864ab; font-weight: bold; ">View on Booking.com</div>
                             </div>
                         `
-                        : ''
-                    }
-
-                    ${data.airbnbRating && data.airbnbCompsFound <= 0 && data.bookingDotComUrl != null ? `
+                        : data.airbnbRating ? `
                         <div class="analytic">
-                            <div style="font-weight: bold; font-size: 30px; color: #1864ab;">4.91</div>
+                            <div style="font-weight: bold; font-size: 30px; color: #1864ab;">${data.airbnbRating}</div>
                             <div>Airbnb Rating</div>
-                        </div> ` : ''}
+                        </div> ` : data.airbnbUrl && data.rentalStatus === "Active"  ? `
+                        <div style="display: flex; align-items: center; justify-content: space-around;">
+                            <div style="width: 130px; text-align: center; color: #1864ab; font-weight: bold; ">View on Airbnb</div>
+                        </div>
+                    ` : ''}
                 </div>
         
                 <hr style="margin-top: 25px; width: calc(100% + 30px); margin-left: -15px;">
                 
                 <div style="height: 52px; display: flex; justify-content: space-between; color: gray; margin-top: -10px;">
                     ${
-                        data.agentName === "Airbuy & Sell" ? `
+                        data.agentName === "Airbuy & Sell" || data.agentName === null ? `
                             <p><b>Phone:</b> ${data.agentPhone ? data.agentPhone : 'Not added yet'}</p>
                         ` : '<p style="color: #ffa164; text-decoration: underline;">Enquire Now</p>'
                     }
@@ -206,3 +205,6 @@ const generateHTML = (data) =>{
 }
 
 module.exports = {generateHTML};
+
+
+
