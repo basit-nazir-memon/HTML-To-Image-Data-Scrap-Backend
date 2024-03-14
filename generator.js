@@ -72,7 +72,7 @@ const generateHTML = (data) =>{
                 }
                 .blackShadow{
                     width: 100%;
-                    background-color: #495057;
+                    background-color: black;
                     height: 330px;
                     border-radius: 10px;
                     opacity: 15%;
@@ -156,7 +156,7 @@ const generateHTML = (data) =>{
                         <div>Avg. Daily Rate</div>
                     </div>
 
-                    ${data.airbnbRating || data.airbnbCompsFound > 0 ? '<div style="width: 3px; border-right: 3px solid lightgray;"></div>' : '' }
+                    ${data.airbnbRating || data.airbnbCompsFound > 0 || data.bookingDotComUrl ? '<div style="width: 3px; border-right: 3px solid lightgray;"></div>' : '' }
         
                     ${data.airbnbCompsFound > 0 ? `
                             <div style="display: flex; align-items: center; justify-content: space-around;">
@@ -173,7 +173,15 @@ const generateHTML = (data) =>{
                         : ''
                     }
 
-                    ${data.airbnbRating && data.airbnbCompsFound <= 0 ? `
+                    ${data.airbnbCompsFound <= 0 && data.bookingDotComUrl ? `
+                            <div style="display: flex; align-items: center; justify-content: space-around;">
+                                <div style="width: 130px; text-align: center; color: #1864ab; font-weight: bold; ">View on Booking.com</div>
+                            </div>
+                        `
+                        : ''
+                    }
+
+                    ${data.airbnbRating && data.airbnbCompsFound <= 0 && data.bookingDotComUrl != null ? `
                         <div class="analytic">
                             <div style="font-weight: bold; font-size: 30px; color: #1864ab;">4.91</div>
                             <div>Airbnb Rating</div>
