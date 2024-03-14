@@ -21,11 +21,11 @@ function getTimeDifference(dateString) {
 
     // Determine the appropriate message based on the difference
     if (days < 1) {
-        return hours === 1 ? 'an hour ago' : `${hours} hours ago`;
+        return 'Added ' + (hours === 1 ? 'an hour ago' : `${hours} hours ago`);
     } else if (days < 30) {
-        return days === 1 ? 'a day ago' : `${days} days ago`;
+        return 'Added ' + (days === 1 ? 'a day ago' : `${days} days ago`);
     } else {
-        return months === 1 ? 'a month ago' : `${months} months ago`;
+        return 'Added ' + (months === 1 ? 'a month ago' : `${months} months ago`);
     }
 }
 
@@ -143,7 +143,7 @@ const generateHTML = (data) =>{
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" height="25px" width="30px" xmlns="http://www.w3.org/2000/svg"><path d="M232,96H208a8,8,0,0,0-8-8H136a8,8,0,0,0-8,8H64V52A12,12,0,0,1,76,40a12.44,12.44,0,0,1,12.16,9.59,8,8,0,0,0,15.68-3.18A28.32,28.32,0,0,0,76,24,28,28,0,0,0,48,52V96H24A16,16,0,0,0,8,112v32a56.06,56.06,0,0,0,56,56v16a8,8,0,0,0,16,0V200h96v16a8,8,0,0,0,16,0V200a56.06,56.06,0,0,0,56-56V112A16,16,0,0,0,232,96Zm-40,8v32H144V104Zm40,40a40,40,0,0,1-40,40H64a40,40,0,0,1-40-40V112H128v32a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V112h24Z"></path></svg>
                     </div>
                 </div>
-                <p style="margin-top: 10px; margin-bottom: 25px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;display: inline-block; max-width: 100%;">${data.street ? data.street + ', ' : ''} ${data.city ? data.city + ', ' : ''} ${data.postCode ? data.postCode.slice(0, 3) : ''}</p>
+                <p style="margin-top: 10px; margin-bottom: 25px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;display: inline-block; max-width: 100%;">${data.street ? data.street + ', ' : ''} ${data.city ? data.city + ', ' : ''} ${data.postcode ? data.postcode.slice(0, 3) : ''}</p>
         
                 <div class="analytics" style="color: #495057;">
                     <div class="analytic">
@@ -152,7 +152,7 @@ const generateHTML = (data) =>{
                     </div>
                     <div style="width: 3px; border-right: 3px solid lightgray;"></div>
                     <div class="analytic">
-                        <div style="font-weight: bold; font-size: 30px; ">£${Math.ceil(data.adr)}</div>
+                        <div style="font-weight: bold; font-size: 30px; ">£${ data.adr - Math.floor(data.adr) >= 0.5 ? Math.ceil(data.adr) : Math.floor(data.adr)  }</div>
                         <div>Avg. Daily Rate</div>
                     </div>
 
