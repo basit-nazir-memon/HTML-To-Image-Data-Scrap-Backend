@@ -29,6 +29,11 @@ function getTimeDifference(dateString) {
     }
 }
 
+function addCommas(price) {
+    return price.toLocaleString();
+}
+
+
 
 const generateHTML = (data) =>{
     const cardHtml = `
@@ -131,7 +136,7 @@ const generateHTML = (data) =>{
                         ${data.isFeatured ? '<div class="cardLabel" style="background-color: #3e4c66;">Featured</div>' : ''}
                         ${(data.rentalStatus === 'Active') ? ('<div class="cardLabel" style="background-color: #ffa164;">' + data.rentalStatus + '</div>') : ''}
                     </div>
-                    <p class="pa" style="top: 220px; color:aliceblue; left: 15px; font-weight: bold; font-size: 35px;">£${data.salesPrice}</p>
+                    <p class="pa" style="top: 220px; color:aliceblue; left: 15px; font-weight: bold; font-size: 35px;">£${addCommas(data.salesPrice)}</p>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: center; font-size: 20px;">
                     <p style="color: #ffa164;">${data.propertyType ? data.propertyType : ' '}</p>
@@ -187,7 +192,7 @@ const generateHTML = (data) =>{
                     ` : ''}
                 </div>
         
-                <hr style="margin-top: 25px; width: calc(100% + 30px); margin-left: -15px;">
+                <hr style="margin-top: 25px; width: calc(100% + 30px); margin-left: -15px; border: none;border-top: 1px solid lightgray;">
                 
                 <div style="height: 52px; display: flex; justify-content: space-between; color: gray; margin-top: -10px;">
                     ${
