@@ -129,7 +129,7 @@ const generateHTML = (data) =>{
                     <svg class="arrows left" width="60px" height="80px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L9.41421 12L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071C15.3166 20.0976 14.6834 20.0976 14.2929 19.7071L7.29289 12.7071C7.10536 12.5196 7 12.2652 7 12C7 11.7348 7.10536 11.4804 7.29289 11.2929L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289Z" fill="#d3d3d3"/></svg>
                     <div class="cardLabels pa">
                         ${data.isFeatured ? '<div class="cardLabel" style="background-color: #3e4c66;">Featured</div>' : ''}
-                        ${data.agentName != 'Airbuy & Sell' ? '<div class="cardLabel" style="background-color: #ffa164;">' + data.rentalStatus + '</div>' : ''}
+                        ${data.agentName === 'Airbuy & Sell' ? '<div class="cardLabel" style="background-color: #ffa164;">' + data.rentalStatus + '</div>' : ''}
                     </div>
                     <p class="pa" style="top: 220px; color:aliceblue; left: 15px; font-weight: bold; font-size: 35px;">£${data.salesPrice}</p>
                 </div>
@@ -143,7 +143,7 @@ const generateHTML = (data) =>{
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 256 256" height="25px" width="30px" xmlns="http://www.w3.org/2000/svg"><path d="M232,96H208a8,8,0,0,0-8-8H136a8,8,0,0,0-8,8H64V52A12,12,0,0,1,76,40a12.44,12.44,0,0,1,12.16,9.59,8,8,0,0,0,15.68-3.18A28.32,28.32,0,0,0,76,24,28,28,0,0,0,48,52V96H24A16,16,0,0,0,8,112v32a56.06,56.06,0,0,0,56,56v16a8,8,0,0,0,16,0V200h96v16a8,8,0,0,0,16,0V200a56.06,56.06,0,0,0,56-56V112A16,16,0,0,0,232,96Zm-40,8v32H144V104Zm40,40a40,40,0,0,1-40,40H64a40,40,0,0,1-40-40V112H128v32a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V112h24Z"></path></svg>
                     </div>
                 </div>
-                <p style="margin-top: 10px; margin-bottom: 25px;">${data.street ? data.street + ', ' : ''} ${data.city ? data.city + ', ' : ''} ${data.postCode ? data.postCode.substring(0, 3) : ''}</p>
+                <p style="margin-top: 10px; margin-bottom: 25px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis;display: inline-block; max-width: 100%;">${data.street ? data.street + ', ' : ''} ${data.city ? data.city + ', ' : ''} ${data.postCode ? data.postCode.slice(0, 3) : ''}</p>
         
                 <div class="analytics" style="color: #495057;">
                     <div class="analytic">
