@@ -69,7 +69,6 @@ const generateHTML = (data) =>{
                 .imageSec{
                     position: relative;
                 }
-        
                 .imageSec img{
                     width: 100%;
                     height: 330px;
@@ -80,7 +79,7 @@ const generateHTML = (data) =>{
                     background-color: black;
                     height: 330px;
                     border-radius: 10px;
-                    opacity: 15%;
+                    opacity: 35%;
                     position: absolute;
                     top: 0;
                 }
