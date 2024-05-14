@@ -89,6 +89,7 @@ app.post('/convert', async (req, res) => {
             
             const buffer = await page.screenshot({type: Imgtype === "PNG" ? "png" : "jpeg"})
             res.set('Content-Type', Imgtype === "PNG" ? 'image/png' : 'image/jpeg');
+            res.set('Access-Control-Allow-Origin', '*');
             res.send(buffer);
         }catch(e){
             console.error(e);
