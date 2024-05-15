@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 const cors = require('cors');
 const fs = require('fs');
+const sharp = require('sharp');
 
 app.use(express.json());
 app.use(cors());
@@ -76,7 +77,7 @@ app.post('/convert', async (req, res) => {
             const page = await browser.newPage();
 
             // Set the viewport width
-            await page.setViewport({ width: 275, height: 300 });
+            await page.setViewport({ width: 610, height: 665 });
 
             // Set the HTML content
             const cardHtml = generateHTML(listingData);
@@ -88,9 +89,12 @@ app.post('/convert', async (req, res) => {
             await new Promise(resolve => setTimeout(resolve, 1000));
             
             const buffer = await page.screenshot({type: Imgtype === "PNG" ? "png" : "jpeg"})
+            const resizedBuffer = await sharp(buffer)
+                .resize({ width: 275, height: 300 })
+                .toBuffer();
             res.set('Content-Type', Imgtype === "PNG" ? 'image/png' : 'image/jpeg');
             res.set('Access-Control-Allow-Origin', '*');
-            res.send(buffer);
+            res.send(resizedBuffer);
         }catch(e){
             console.error(e);
         } finally {
