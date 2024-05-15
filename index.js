@@ -76,7 +76,7 @@ app.post('/convert', async (req, res) => {
             const page = await browser.newPage();
 
             // Set the viewport width
-            await page.setViewport({ width: 610, height: 665 });
+            await page.setViewport({ width: 275, height: 300 });
 
             // Set the HTML content
             const cardHtml = generateHTML(listingData);
